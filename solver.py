@@ -6,6 +6,9 @@ from operator import itemgetter
 # Algoritmo 2: Insere primeiro na mochila os itens de menor peso
 # Algoritmo 3: Insere primeiro na mochila os itens de maior valor/peso
 
+# Define qual algoritmo será usado (1, 2 ou 3)
+ALGORITMO = 1
+
 
 # Lê os dados de uma única instância e retorna uma lista de listas com as informações
 # dos itens e a capacidade da mochila na instância
@@ -124,7 +127,15 @@ def salva_solucao(arq_solucao, solucao, valor, peso):
 # e salva a solução encontrada no arquivo arq_solucao
 def resolve_instancia(arq_instancia, arq_solucao):
     dados, capacidade = le_dados_instancia(arq_instancia)
-    solucao, valor, peso = algoritmo_maior_valor(dados, capacidade)
+    global ALGORITMO
+    if ALGORITMO == 1:
+        solucao, valor, peso = algoritmo_maior_valor(dados, capacidade)
+    elif ALGORITMO == 2:
+        solucao, valor, peso = algoritmo_menor_peso(dados, capacidade)
+    elif ALGORITMO == 3:
+        solucao, valor, peso = algoritmo_maior_valor_peso(dados, capacidade)
+    else:
+        solucao, valor, peso = algoritmo_maior_valor(dados, capacidade)
     salva_solucao(arq_solucao, solucao, valor, peso)
 
 
